@@ -48,6 +48,17 @@ function afterWinning(){
     newGameButton.classList.add('active');
 }
 
+
+function afterDraw(){
+   
+    playerTextClass.innerHTML = `Game draw`;
+    for(box of boxes){
+        box.setAttribute("style","pointer-events:none");
+    }
+    newGameButton.classList.add('active');
+}
+
+
 newGameButton.addEventListener('click',()=>{
     gameInitialisation();
 });
@@ -63,6 +74,14 @@ function isWon(){
     }
 
     return false;
+}
+
+function isDraw(){
+    for(index of grid){
+        if(index == "")
+        return false;
+    }
+    return true;
 }
 
 function swapTurns(){
@@ -81,6 +100,11 @@ function handleClick(index){
             afterWinning();
             return;
         }
+        if(isDraw()){
+            afterDraw();
+            return;
+        }
+        
         swapTurns();
         playerTextClass.innerHTML = `Current Player-${currentPlayer}`;
     }
